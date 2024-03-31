@@ -28,6 +28,7 @@ def reset():
     txt_progress.value=f'{tries} tries left.'
     txt_input.value=' '.join(progress)
     games_txt.value=f'Game number {games}.'
+    wrong.value = ''
     txt_char_wrong.value=''
     txt_bx.value=''
     password_reveal.value=''
@@ -51,12 +52,12 @@ def main():
             txt_progress.text_color='green'
             tries=-1
         if not any_guessed:
-            tries -= 1
             txt_progress.value = f'{tries} tries left.'
             if x not in char_wrong and x!='':
                 char_wrong.append(x)
-                txt_char_wrong.value=f"Wrong characters: {' '.join(char_wrong)}"
-
+                wrong.value='Wrong characters: '
+                txt_char_wrong.value=' '.join(char_wrong)
+            tries -= 1
             j += 1
             if j<11:
                 img.image = f"{j}.PNG"
@@ -81,13 +82,13 @@ txt_input=Text(right_box, text=' '.join(progress), font='Comic Sans MS', size=20
 txt_bx=TextBox(right_box, width=1)
 label_txt_bx=Text(right_box, text="Input a letter and then press Enter", font='Comic Sans MS')
 enter=PushButton(right_box, text='Enter', command=main) #, command=main
-reset=PushButton(right_box, text='Reset', command=reset)
+reset=PushButton(right_box, text='Next game', command=reset)
 
 
 
 txt_progress=Text(right_box, text=f'{tries} tries left.', font='Comic Sans MS')
 
-
+wrong=Text(right_box, text='', font='Comic Sans MS', color='black')
 txt_char_wrong=Text(right_box, text='', font='Comic Sans MS', color='red')
 
 games_txt=Text(right_box, text=f'Game number {games}.', font='Comic Sans MS', color='blue')
